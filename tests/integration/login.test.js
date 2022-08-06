@@ -16,7 +16,7 @@ test('login succeeds with valid credentials', async () => {
     .expect(200)
   const body = response.body
   expect(body).toHaveProperty('redirect')
-})
+}, 10000)
 
 test('login fails without an airline', async () => {
   const { airline, ...newRequest } = request

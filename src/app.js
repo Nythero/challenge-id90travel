@@ -3,6 +3,7 @@ const app = express()
 const errorHandler = require('./middlewares/errorHandler')
 const loginController = require('./controllers/login')
 
+app.use(express.static(__dirname+'/public'))
 app.use(express.json())
 app.use('/api/login', loginController)
 app.use(errorHandler)

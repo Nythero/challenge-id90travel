@@ -1,4 +1,10 @@
 const app = require('./app')
 const { PORT } = require('./utils/config')
+const createAirlinesFile = require('./utils/createAirlinesFile')
 
-app.listen(PORT, () => console.log(`Listening at port: ${PORT}`))
+const run = async () => {
+  await createAirlinesFile()
+  app.listen(PORT, () => console.log(`Listening at port: ${PORT}`))
+}
+
+run()
