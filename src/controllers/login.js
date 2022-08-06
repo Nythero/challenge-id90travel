@@ -18,9 +18,9 @@ const generateRequest = body => ({
   remember_me: body.remember_me
 })
 
-const generateResponse = loginResponse => {
+const generateResponse = loginResponse => ({
   redirect: loginResponse.redirect
-}
+})
 
 const setResponseHeaders = (res, loginResponse) => {
   const headers = loginResponse.headers
@@ -28,9 +28,9 @@ const setResponseHeaders = (res, loginResponse) => {
 }
 
 const loginController = async (req, res, next) => {
-  validateBodyData(req.body)
-  const request = generateRequest(req.body)
   try {
+    validateBodyData(req.body)
+    const request = generateRequest(req.body)
     const loginResponse = await login(request)
     const response = generateResponse(loginResponse.data)
     setResponseHeaders(res, loginResponse)

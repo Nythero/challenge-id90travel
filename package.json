@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "unit": "jest tests/unit",
+    "integration": "jest tests/integration"
   },
   "author": "Agustin Gonzalez",
   "license": "ISC",
