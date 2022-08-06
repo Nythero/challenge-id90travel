@@ -6,6 +6,12 @@ const getAirlines = async () => {
   return response.data
 }
 
+const login = async (request) => {
+  const response = await axios.post(BASEURL + '/session.json', request)
+  return response
+}
+
 module.exports = {
-  getAirlines
+  getAirlines,
+  login
 }

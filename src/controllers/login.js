@@ -1,4 +1,5 @@
 const ValidationError = require('../utils/ValidationError')
+const { login } = require('../services/id90travel')
 
 const isString = e => typeof e === 'string' || e instanceof String
 
@@ -10,9 +11,34 @@ const validateBodyData = body => {
   }
 }
 
-const loginController = (req, res, next) => {
+const generateRequest = body => ({
+  airline: body.airline,
+  username: body.username,
+  password: body.password,
+  remember_me: body.remember_me
+})
+
+const generateResponse = loginResponse => {
+  redirect: loginResponse.redirect
+}
+
+const setResponseHeaders = (res, loginResponse) => {
+  const headers = loginResponse.headers
+  res.append('set-cookie', headers['set-cookie'])
+}
+
+const loginController = async (req, res, next) => {
   validateBodyData(req.body)
-  res.status(204).end()
+  const request = generateRequest(req.body)
+  try {
+    const loginResponse = await login(request)
+    const response = generateResponse(loginResponse.data)
+    setResponseHeaders(res, loginResponse)
+    res.status(200).json(response)
+  }
+  catch(err) {
+    next(err)
+  }
 }
 
 module.exports = loginController

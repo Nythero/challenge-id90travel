@@ -11,9 +11,11 @@ const request = {
 }
 
 test('login succeeds with valid credentials', async () => {
-  await api.get('/login')
+  const response = await api.get('/login')
     .send(request)
-    .expect(204)
+    .expect(200)
+  const body = response.body
+  expect(body).toHaveProperty('redirect')
 })
 
 test('login fails without an airline', async () => {
