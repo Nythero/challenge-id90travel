@@ -11,7 +11,7 @@ const request = {
 }
 
 test('login succeeds with valid credentials', async () => {
-  const response = await api.get('/api/login')
+  const response = await api.post('/api/login')
     .send(request)
     .expect(200)
   const body = response.body
@@ -20,7 +20,7 @@ test('login succeeds with valid credentials', async () => {
 
 test('login fails without an airline', async () => {
   const { airline, ...newRequest } = request
-  const response = await api.get('/api/login')
+  const response = await api.post('/api/login')
     .send(newRequest)
     .expect(400)
   const body = response.body
@@ -30,7 +30,7 @@ test('login fails without an airline', async () => {
 
 test('login fails without an username', async () => {
   const { username, ...newRequest } = request
-  const response = await api.get('/api/login')
+  const response = await api.post('/api/login')
     .send(newRequest)
     .expect(400)
   const body = response.body
@@ -40,7 +40,7 @@ test('login fails without an username', async () => {
 
 test('login fails without an password', async () => {
   const { password, ...newRequest } = request
-  const response = await api.get('/api/login')
+  const response = await api.post('/api/login')
     .send(newRequest)
     .expect(400)
   const body = response.body

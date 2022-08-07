@@ -3,7 +3,7 @@ const loginController = require('../controllers/login')
 const express = require('express')
 const loginRouter = express.Router()
 
-loginRouter.use('/', [
+loginRouter.post('/', [
   loginBodyValidator,
   loginController
 ])
