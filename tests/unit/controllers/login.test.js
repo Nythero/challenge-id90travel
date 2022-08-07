@@ -36,10 +36,8 @@ afterEach(() => {
 })
 
 test('should call login service and respond with status code 200', async () => {
-  const data = { redirect: '' }
   login.mockImplementation(() => ({
-    headers: {},
-    data
+    headers: {}
   }))
 
   await loginController(reqMock, resMock, nextMock)
