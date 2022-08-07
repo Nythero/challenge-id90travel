@@ -1,15 +1,6 @@
-const ValidationError = require('../utils/ValidationError')
 const { login } = require('../services/id90travel')
+const { validateLoginBodyData } = require('../utils/validators')
 
-const isString = e => typeof e === 'string' || e instanceof String
-
-const validateBodyData = body => {
-  const properties = ['airline', 'username', 'password']
-  for(const property of properties) {
-    if(!isString(body[property]) || body[property] === '')
-      throw new ValidationError(`${property} is invalid`, property)
-  }
-}
 
 const generateRequest = body => ({
   airline: body.airline,
@@ -29,7 +20,7 @@ const setResponseHeaders = (res, loginResponse) => {
 
 const loginController = async (req, res, next) => {
   try {
-    validateBodyData(req.body)
+    validateLoginBodyData(req.body)
     const request = generateRequest(req.body)
     const loginResponse = await login(request)
     const response = generateResponse(loginResponse.data)

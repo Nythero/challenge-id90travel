@@ -1,11 +1,23 @@
 const loginController = require('../../src/controllers/login')
 
-let reqMock
+let body = {
+  username: '',
+  password: '',
+  airline: '',
+  remember_me: ''
+}
+let reqMock = { body }
 let resMock
 let nextMock
+//Mocks login service
 let { login } = require('../../src/services/id90travel.js')
 jest.mock('../../src/services/id90travel.js', () => ({
   login: jest.fn()
+}))
+//Mocks body validator
+let { validateLoginBodyData } = require('../../src/utils/validators.js')
+jest.mock('../../src/utils/validators.js', () => ({
+  validateLoginBodyData: jest.fn()
 }))
 
 const mockRes = () => {
@@ -18,13 +30,6 @@ const mockRes = () => {
   resMock.json.mockReturnThis()
 }
 
-const request = {
-  airline: 'HA',
-  username: 'halucas',
-  password: '123456',
-  remember_me: '1'
-}
-
 beforeAll(() => {
   mockRes()
   nextMock = jest.fn()
@@ -35,11 +40,7 @@ afterEach(() => {
 })
 
 test('should call login service and respond with status code 200', async () => {
-  const body = { ...request }
-  reqMock = { body }
-  const data = {
-    redirect: ''
-  }
+  const data = { redirect: '' }
   login.mockImplementation(() => ({
     headers: {},
     data
@@ -47,61 +48,32 @@ test('should call login service and respond with status code 200', async () => {
 
   await loginController(reqMock, resMock, nextMock)
   
+  expect(validateLoginBodyData).toHaveBeenCalled()
   expect(login).toHaveBeenCalledWith(body)
   expect(resMock.status).toHaveBeenCalledWith(200)
   expect(resMock.json).toHaveBeenCalled()
 })
 
 describe('should call next', () => {
-  test('when there\'s no airline', async () => {
-    const { airline, ...body } = request
-    reqMock = { body }
-    const data = {
-      redirect: ''
-    }
-
+  test('when validations fails', async () => {
+    validateLoginBodyData.mockImplementation(() => {
+      throw new Error()
+    })
     await loginController(reqMock, resMock, nextMock)
-    
+  
+    expect(validateLoginBodyData).toThrow()  
     expect(login).not.toHaveBeenCalled()
-    expect(nextMock).toHaveBeenCalledWith(expect.anything())
-  })
-  test('when there\'s no username', async () => {
-    const { username, ...body } = request
-    reqMock = { body }
-    const data = {
-      redirect: ''
-    }
-
-    await loginController(reqMock, resMock, nextMock)
-    
-    expect(login).not.toHaveBeenCalled()
-    expect(nextMock).toHaveBeenCalledWith(expect.anything())
-  })
-  test('when there\'s no password', async () => {
-    const { password, ...body } = request
-    reqMock = { body }
-    const data = {
-      redirect: ''
-    }
-
-    await loginController(reqMock, resMock, nextMock)
-    
-    expect(login).not.toHaveBeenCalled()
-    expect(nextMock).toHaveBeenCalledWith(expect.anything())
+    expect(nextMock).toHaveBeenCalledWith(expect.any(Error))
   })
   test('when login fails', async () => {
-    const body = { ...request }
-    reqMock = { body }
-    const data = {
-      redirect: ''
-    }
     login.mockImplementation(() => {
       throw new Error()
     })
 
     await loginController(reqMock, resMock, nextMock)
-    
-    expect(login).toHaveBeenCalledWith(body)
-    expect(nextMock).toHaveBeenCalledWith(expect.anything())
+  
+    expect(validateLoginBodyData).toHaveBeenCalled()    
+    expect(login).toThrow()
+    expect(nextMock).toHaveBeenCalledWith(expect.any(Error))
   })
 })
