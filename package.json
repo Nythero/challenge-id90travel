@@ -4,11 +4,11 @@
   "description": "Challenge de Id90Travel",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_PATH=src jest",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js --ignore tests/ --ignore public/",
-    "unit": "jest tests/unit",
-    "integration": "jest tests/integration"
+    "unit": "NODE_PATH=src jest tests/unit",
+    "integration": "NODE_PATH=src jest tests/integration"
   },
   "author": "Agustin Gonzalez",
   "license": "ISC",
