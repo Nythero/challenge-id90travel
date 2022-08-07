@@ -1,7 +1,6 @@
 const { login } = require('../services/id90travel')
 const { validateLoginBodyData } = require('../utils/validators')
 
-
 const generateRequest = body => ({
   airline: body.airline,
   username: body.username,
@@ -20,10 +19,10 @@ const setResponseHeaders = (res, loginResponse) => {
 
 const loginController = async (req, res, next) => {
   try {
-    validateLoginBodyData(req.body)
+    validateLoginBodyData(req)
     const request = generateRequest(req.body)
     const loginResponse = await login(request)
-    const response = generateResponse(loginResponse.data)
+    const response = generateResponse(loginResponse)
     setResponseHeaders(res, loginResponse)
     res.status(200).json(response)
   }
