@@ -31,7 +31,7 @@ const submitHandler = event => {
     .then(data => {
       const [status, payload] = data
       if(status === 200) {
-	//TODO
+        window.location.replace(payload.redirect)
       }
       else {
 	//Handle other status codes

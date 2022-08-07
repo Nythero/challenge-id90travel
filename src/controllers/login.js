@@ -19,7 +19,7 @@ const generateRequest = body => ({
 })
 
 const generateResponse = loginResponse => ({
-  redirect: loginResponse.redirect
+  redirect: '/hotels'
 })
 
 const setResponseHeaders = (res, loginResponse) => {
