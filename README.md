@@ -23,6 +23,8 @@ At least Node 16.13.2
   npm run start
 ```
 
+To run in another port create an env file with the env variable PORT
+
 ## How to Run tests
 
 ### How to Run all Tests
