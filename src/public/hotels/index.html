@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <form method="get">
-      <label>
-	Destination
-      </label>
-      <input name="destination" type="text" required="">
-      </input>
-      <label>
-	Guests
-      </label>
-      <input name="guests[]" type="number" placeholder=1 min=1 max=4 required="">
-      </input>
-      <label>
-	Checkin
-      </label>
-      <input name="checkin" type="date" required="">
-      </input>
-      <label>
-	Checkout
-      </label>
-      <input name="checkout" type="date" required="">
-      </input>
-      <button>
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="display">
+    <form class="form" method="get">
+      <div class="input">
+        <label class="label">Destination</label>
+        <input class="input_text" name="destination" type="text" required=""></input>
+      </div>
+      <div class="input">
+        <label class="label">Guests</label>
+        <input class="input_text" name="guests[]" type="number" placeholder=1 min=1 max=4 required=""></input>
+      </div>
+      <div class="input">
+        <label class="label">Checkin</label>
+        <input class="input_text" name="checkin" type="date" required=""></input>
+      </div>
+      <div class="input">
+        <label class="label">Checkout</label>
+        <input class="input_text" name="checkout" type="date" required=""></input>
+      </div>
+      <button class="button">
 	Search
       </button>
     </form>
-    <div id="hotels">
+    <div class="hotels" id="hotels">
     </div>
     <script src="onload.js"></script>
   </body>

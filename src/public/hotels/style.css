@@ -1,0 +1,16 @@
+.hotels {
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hotel {
+  width: 20%;
+  margin: 0 2.5%;
+}
+
+.image {
+  height: 200px;
+  width: 100%
+}

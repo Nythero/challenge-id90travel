@@ -18,7 +18,11 @@ const mapHotels = hotels => {
   }))
 }
 
-const hotelHtml = hotel => `<img src=${hotel.image}><h3>${hotel.name}</h3>`
+const imageHtml = hotel => `<img class="image" src=${hotel.image}>`
+
+const nameHtml = hotel => `<h3 class="name">${hotel.name}</h3>`
+
+const hotelHtml = hotel => `<div class="hotel">${imageHtml(hotel)}${nameHtml(hotel)}</div>`
 
 const hotelsHtml = hotels => {
   const htmlMap = hotels.map(hotelHtml)
