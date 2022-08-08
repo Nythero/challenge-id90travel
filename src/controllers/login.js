@@ -13,7 +13,8 @@ const generateResponse = loginResponse => ({
 
 const setResponseHeaders = (res, loginResponse) => {
   const headers = loginResponse.headers
-  res.append('set-cookie', headers['set-cookie'])
+  const setCookie = headers['set-cookie']
+  res.append('set-cookie', setCookie)
 }
 
 const loginController = async (req, res, next) => {
