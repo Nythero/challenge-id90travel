@@ -4,27 +4,27 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body class="display">
-    <form>
-      <label>
-	Airline
-      </label>
-      <input id="airline" type="text" list="airlines">
-      </input>
-      <datalist id="airlines">
-      </datalist>
-      <label>
-	Username
-      </label>
-      <input id="username" type="text">
-      </input>
-      <label>
-	Password
-      </label>
-      <input id="password" type="password">
-      </input>
-      <input id="remember_me" type="checkbox">
-      </input>
-      <button>
+    <form class="form">
+      <div class="input">
+        <label class="label">Airline</label>
+        <input class="input_text" id="airline" type="text" list="airlines"></input>
+        <datalist id="airlines">
+        </datalist>
+      </div>
+      <div class="input">
+        <label class="label">Username</label>
+        <input class="input_text" id="username" type="text"></input>
+      </div>
+      <div class="input">
+        <label class="label">Password</label>
+        <input class="input_text" id="password" type="password"></input>
+      </div>
+      <div class="input">
+        <label class="label">Remember Me</label>
+        <input id="remember_me" type="checkbox">
+        </input>
+      </div>
+      <button class="button">
 	Login
       </button>
     </form>
