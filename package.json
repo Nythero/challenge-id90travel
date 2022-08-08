@@ -4,7 +4,7 @@
   "description": "Challenge de Id90Travel",
   "main": "src/index.js",
   "scripts": {
-    "test": "NODE_PATH=src jest",
+    "test": "NODE_PATH=src jest --runInBand",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js --ignore tests/ --ignore public/",
     "unit": "NODE_PATH=src jest tests/unit",
