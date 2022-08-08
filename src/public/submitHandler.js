@@ -3,7 +3,7 @@ const getCodeFromDisplayName = airline => {
   //This will fail if some string has more than 1 pair of parenthesis
   const regexp = /\((.*)\)/
   const result = regexp.exec(airline)
-  return result[1]
+  return result? result[1] : airline
 }
 
 const generateBody = form => ({
@@ -13,33 +13,36 @@ const generateBody = form => ({
   remember_me: form.remember_me.value
 })
 
-const submitHandler = event => {
-  event.preventDefault()
-  const body = JSON.stringify(generateBody(event.target))
+const login = async body => {
   const options = {
     method: 'POST',
     body,
     headers: { 'Content-Type': 'application/json' }
   }
-  fetch('/api/login', options)
-    .then(response => {
-      return Promise.all([
-	response.status,
-        response.json()
-      ])
-    })
-    .then(data => {
-      const [status, payload] = data
-      if(status === 200) {
-        window.location.replace(payload.redirect)
-      }
-      else {
-	//Handle other status codes
-	console.log(status, payload)
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  const response = await fetch('/api/login', options)
+  const responseJson = await response.json()
+  const status = response.status
+  return {
+    status,
+    response: responseJson
+  }
+}
+
+const submitHandler = async event => {
+  event.preventDefault()
+  const body = JSON.stringify(generateBody(event.target))
+  try {
+    const { status, response } = await login(body)
+    if(status === 200) {
+      window.location.replace(response.redirect)
+    }
+    else {
+      //Handle other status codes
+      console.log(status, payload)
+    }
+  }
+  catch(err) {
+    console.log(err)
+  }
 }
 document.getElementsByTagName('form')[0].onsubmit = submitHandler

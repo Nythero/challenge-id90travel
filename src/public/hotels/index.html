@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form method="get">
+      <label>
+	Destination
+      </label>
+      <input name="destination" type="text" required="">
+      </input>
+      <label>
+	Guests
+      </label>
+      <input name="guests[]" type="number" placeholder=1 min=1 max=4 required="">
+      </input>
+      <label>
+	Checkin
+      </label>
+      <input name="checkin" type="date" required="">
+      </input>
+      <label>
+	Checkout
+      </label>
+      <input name="checkout" type="date" required="">
+      </input>
+      <button>
+	Search
+      </button>
+    </form>
+    <div id="hotels">
+    </div>
+    <script src="onload.js"></script>
+  </body>
+</html>
